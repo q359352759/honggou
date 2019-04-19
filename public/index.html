@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <link rel="stylesheet" type="text/css" href="mui/css/mui.min.css">
+
+    <link rel="stylesheet" href="swiper4/css/swiper.css">
+    <!-- picker选择器 -->
+    <!-- <link href="mui/css/mui.picker.css" rel="stylesheet" /> -->
+    <link href="mui/css/mui.picker.min.css" rel="stylesheet" />
+    <link href="mui/css/mui.poppicker.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="fontClass3/iconfont.css?v=33">
+    <title>红购：一个专注省钱的消费平台</title>
+    <style>
+        #loading,
+        #loading2{
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+            z-index: 1001;
+            transition: all 0.5s;
+        }
+        #loading>div,
+        #loading2>div{
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            margin: auto;
+            background: rgba(0,0,0,0.5);
+            z-index: 11;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 10px;
+            color: #ffffff;
+        }
+        
+        #loading.active,
+        #loading2.active{
+            display: block;
+        }
+        #loading i,
+        #loading2 i{
+            display: inline-block;
+            animation: index_loading 1s linear infinite;
+        }
+        @keyframes index_loading {
+            from{
+                transform: rotate(0deg);
+            }to {
+                transform: rotate(360deg);
+            }
+        }
+        iframe[height="0"]{
+            position: absolute;
+        }
+        iframe[src*="https://api.map.baidu.com/"]{
+            position: fixed;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loading">
+        <div>
+            <i class="mui-icon mui-icon-spinner mui-spin"></i>
+        </div>
+    </div>
+
+    <div id="loading2">
+        <div>
+            <i class="mui-icon mui-icon-spinner mui-spin"></i>
+        </div>
+    </div>
+
+    <!-- <noscript>
+      <strong>We're sorry but lexiang doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript> -->
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+    <script>
+        // var baseURL="http://ht.redmall.vip:10002";
+        var baseURL="http://192.168.1.7:10002";
+        
+        var ApplicationType="web";  //web app
+        var AppType="hb";           //app类型 ios 或者 其他的
+        var 是否判断审核=false;
+        var 当前版本号='1.0.1';
+    </script>
+
+<!-- 15378178854 -->
+    
+    <!-- <script src="ueditor1_4_3_3-utf8-asp/utf8-asp/ueditor.config.js"></script>
+    <script src="ueditor1_4_3_3-utf8-asp/utf8-asp/ueditor.all.min.js?a=2"></script> -->
+    
+    <!-- <script src="wangEditor-3.1.1/release/wangEditor.js"></script> -->
+    <script src="swiper4/js/swiper.js"></script>
+
+    <script src="mui/js/mui.js?v=5"></script>
+    <!-- picker 选择器 -->
+    <script src="mui/js/mui.picker.js?v=1"></script>
+    <script src="mui/js/mui.poppicker.js"></script>
+    <!-- <script src="mui/js/mui.poppicker.js"></script> -->
+    <!-- 时间选择器 -->
+    <script src="mui/js/mui.dtpicker.js"></script>
+    <script src="js/rem.js"></script>
+
+    <!-- 微信JS -->
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+    <!-- <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script> -->
+    <!-- 百度地图 -->
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=hGVFfKSy2aTqvO4iR3B2ogiu"></script>
+    
+    <script>
+        if(ApplicationType=='app'){
+            mui.plusReady(function() {
+                //首页返回键处理
+                //处理逻辑：1秒内，连续两次按返回键，则退出应用；
+                var first = null;
+                plus.key.addEventListener('backbutton', function(){
+                    //首次按键，提示‘再按一次退出应用’
+                    if(!first){
+                        first = new Date().getTime();
+                        mui.toast('再按一次退出应用');
+                        setTimeout(function(){
+                            first = null;
+                        },1000);
+                    }else{
+                        if(new Date().getTime()-first<1000){
+                            // plus.runtime.quit();
+                            var main = plus.android.runtimeMainActivity();  
+                                main.moveTaskToBack(false); 
+                        }
+                    }
+                }, false);
+            });
+        }
+        
+        
+    </script>
+</body>
+
+</html>
